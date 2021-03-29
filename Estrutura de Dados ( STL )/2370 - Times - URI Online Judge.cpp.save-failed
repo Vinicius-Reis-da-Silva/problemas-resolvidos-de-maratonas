@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+struct Time {
+    vector< pair<int , string> > nomes;
+};
+
+bool pontoOrdem(pair<int , string> a , pair<int , string> b){
+    return a.first > b.first;
+}
+
+int main(){
+
+    vector< pair<int , string> > aluno;
+    string nome;
+
+    int pts;
+    int numberAluno, numberTime;
+
+    cin >> numberAluno >> numberTime;
+    Time time[numberTime];
+
+    for(int i=0 ; i<numberAluno ; i++){
+        cin >> nome >> pts;
+        aluno.push_back(make_pair(pts,nome));
+    }
+
+    sort(aluno.begin() , aluno.end() , pontoOrdem);
+    for(int i=0 ; i<aluno.size(); ){
+        for(int j=0 ; j<numberTime ; j++ , i+=j){
+            time[j].nomes.push_back(aluno[i]);
+        }
+    }
+
+    cout << endl;
+    for(int i=0 ; i<numberTime ; i++){
+        cout << "Time " << (i+1) << endl;
+        for(int j=0 ; j<time[i].nomes.size() ; j++){
+            cout << time[i].nomes[j].first << " " << time[i].nomes[j].second << endl;
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
